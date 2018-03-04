@@ -94,7 +94,7 @@ function genomeTrack(layout,tracks) {
 	.attr("height", this.layout.height)
 	.attr("transform", "translate(0,0)");
     //	.attr("transform", "translate(" + this.layout.left_margin + ",0)");
-    
+
     this.drawFeatures();
 
     this.main = this.chart.append("g")
@@ -144,7 +144,7 @@ function genomeTrack(layout,tracks) {
 	    .attr("y2", 20)
 	    .attr("class", "dragbar-line");
     }
-	
+
 
     this.genomesize = layout.genomesize;
 
@@ -154,7 +154,7 @@ function genomeTrack(layout,tracks) {
 	.html(function(d) {
 		return "<strong>Name:</strong> <span style='color:red'>" + d.name + "</span>";
 	    });
-    
+
     this.chart.call(this.tip);
 
     this.axisContainer = this.chart.append("g")
@@ -222,7 +222,7 @@ function genomeTrack(layout,tracks) {
 			     }
 			     // This takes care of ignoring items that
 			     // are already well above the current stack order
-			     
+
 			 } else {
 			     // Or if it no longer overlaps, remove it
 			     inframe.splice(k, 1);
@@ -339,7 +339,7 @@ genomeTrack.prototype.countTracks = function() {
 	    // Do nothing for an unknown track type
 	}
     }
-   
+
     return track_count;
 }
 
@@ -374,7 +374,7 @@ genomeTrack.prototype.displayStranded = function(track, i) {
 
     var rects = this.itemRects[i].selectAll("g")
     .data(visItems, function(d) { return d.id; })
-	.attr("transform", function(d,i) { 
+	.attr("transform", function(d,i) {
 	    return "translate(" + x1(d.start) + ',' +  d.yshift + ")"; });
 
     // Process the changed/moved rects
@@ -412,7 +412,7 @@ genomeTrack.prototype.displayStranded = function(track, i) {
 	    }
 
 	    d3.select(this).select("path")
-		.attr("d", function(d) { 
+		.attr("d", function(d) {
 			return arrowline;
 		    });
 
@@ -448,7 +448,7 @@ genomeTrack.prototype.displayStranded = function(track, i) {
     .attr("id", function(d,i) { return track.trackName + '_' + d.id; })
     .attr("class", function(d) {
 	    return track.trackName + '_' + d.suffix + '_group ' + (typeof d.feature === 'undefined' ? 'gene' : d.feature); })//;
-	   
+
     //        entering_rects
     .each(function(d) {
 	    d.width = x1(d.end) - x1(d.start);
@@ -461,7 +461,7 @@ genomeTrack.prototype.displayStranded = function(track, i) {
 			return track.trackName + '_' + d.suffix + ' ' + ((d.width > 5) ? (track.trackName + '_' + d.suffix + '_zoomed') : '') + ' ' + ('undefined' !== typeof d.extraclass ? d.extraclass : '');})
 		.attr("width", function(d) {return d.width;})
 		.attr("height", function(d) {
-			if(track.trackFeatures == 'complex') { 
+			if(track.trackFeatures == 'complex') {
 			    var scale_factor = 0.77;
 			} else {
 			    var scale_factor = 1;
@@ -481,7 +481,7 @@ genomeTrack.prototype.displayStranded = function(track, i) {
 		null;
 	    }
 	})
-    .on('mouseover', function(d) { 
+    .on('mouseover', function(d) {
 	    tip.show(d);
 	    if('undefined' !== typeof track.linear_mouseover) {
 		var fn = window[track.linear_mouseover];
@@ -490,9 +490,9 @@ genomeTrack.prototype.displayStranded = function(track, i) {
 		} else if('function' == typeof fn) {
 		    return fn(track.trackName, d, cfg.plotid);
 		}
-	    }	
+	    }
 	})
-    .on('mouseout', function(d) { 
+    .on('mouseout', function(d) {
 	    tip.hide(d);
 	    if('undefined' !== typeof track.linear_mouseout) {
 		var fn = window[track.linear_mouseout];
@@ -501,7 +501,7 @@ genomeTrack.prototype.displayStranded = function(track, i) {
 		} else if('function' == typeof fn) {
 		    return fn(track.trackName, d, cfg.plotid);
 		}
-	    }	
+	    }
 	});
 
 	    } else if(d.feature == "terminator") {
@@ -533,12 +533,12 @@ genomeTrack.prototype.displayStranded = function(track, i) {
 		}
 		arrowclass = track.trackName + '_arrow_' + d.suffix + ' ' + ('undefined' !== typeof d.extraclass ? d.extraclass : '');
 		arrowbase = d3.select(this)
-		
+
 		arrowbase.append("path")
 		.attr("class", arrowclass)
-		.attr("d", function(d) { 
+		.attr("d", function(d) {
 			// 0.77 * 0.9
-			
+
 			return arrowline;
 		    })
 		.attr("fill-opacity", 0)
@@ -604,8 +604,8 @@ genomeTrack.prototype.displayTrack = function(track, i) {
 
     var rects = this.itemRects[i].selectAll("g")
     .data(visItems, function(d) { return d.id; })
-    .attr("transform", function(d,i) { 
-	    return "translate(" + x1(d.start) + ',' + d.yshift  + ")"; 
+    .attr("transform", function(d,i) {
+	    return "translate(" + x1(d.start) + ',' + d.yshift  + ")";
 	});
 
 
@@ -633,7 +633,7 @@ genomeTrack.prototype.displayTrack = function(track, i) {
 	    d.width = x1(d.end + 1) - x1(d.start);
 
 	    d3.select(this).select("path")
-		.attr("d", function(d) { 
+		.attr("d", function(d) {
 			return "m 0," + track.baseheight + "l 0,-" + (track.baseheight + d.height) + " " + d.width + ",0";
 		    });
 
@@ -645,7 +645,7 @@ genomeTrack.prototype.displayTrack = function(track, i) {
 	});
 
     var entering_rects = rects.enter().append("g")
-    .attr("transform", function(d,i) { 
+    .attr("transform", function(d,i) {
 	    ystack = stackNum;
 	    shift_gene = 0;
 	    if(typeof d.feature !== 'undefined' && d.feature == "terminator") {
@@ -656,14 +656,14 @@ genomeTrack.prototype.displayTrack = function(track, i) {
 	    }
 
 	    d.yshift = y1(ystack) + 10 + shift_gene;
-	    return "translate(" + x1(d.start) + ',' + d.yshift  + ")"; 
+	    return "translate(" + x1(d.start) + ',' + d.yshift  + ")";
 	})
     .attr("id", function(d,i) { return track.trackName + '_' + d.id; })
     .attr("class", function(d) {return track.trackName + '_group ' + (typeof d.feature === 'undefined' ? 'gene' : d.feature); })//;
 
     //    entering_rects
-    .each(function (d) { 
-	    d.width = x1(d.end) - x1(d.start); 
+    .each(function (d) {
+	    d.width = x1(d.end) - x1(d.start);
 
 	    if (typeof d.feature === 'undefined' || d.feature == "gene") {
 
@@ -693,7 +693,7 @@ genomeTrack.prototype.displayTrack = function(track, i) {
 				null;
 			    }
 			})
-		    .on('mouseover', function(d) { 
+		    .on('mouseover', function(d) {
 			    tip.show(d);
 			    if('undefined' !== typeof track.linear_mouseover) {
 				var fn = window[track.linear_mouseover];
@@ -702,9 +702,9 @@ genomeTrack.prototype.displayTrack = function(track, i) {
 				} else if('function' == typeof fn) {
 				    return fn(track.trackName, d, cfg.plotid);
 				}
-			    }	
+			    }
 			})
-		    .on('mouseout', function(d) { 
+		    .on('mouseout', function(d) {
 			    tip.hide(d);
 			    if('undefined' !== typeof track.linear_mouseout) {
 				var fn = window[track.linear_mouseout];
@@ -713,9 +713,9 @@ genomeTrack.prototype.displayTrack = function(track, i) {
 				} else if('function' == typeof fn) {
 				    return fn(track.trackName, d, cfg.plotid);
 				}
-			    }	
+			    }
 			})
-		    
+
 		    if('undefined' !== typeof track.showLabels) {
 			//		entering_rects
 			d3.select(this).append("text")
@@ -738,13 +738,13 @@ genomeTrack.prototype.displayTrack = function(track, i) {
 
 		arrowclass = track.trackName + '_arrow' + ' ' + ('undefined' !== typeof d.extraclass ? d.extraclass : '');
 		arrowbase = d3.select(this)
-		
+
 		arrowbase.append("path")
 		.attr("class", arrowclass)
-		.attr("d", function(d) { 
+		.attr("d", function(d) {
 			// 0.77 * 0.9
 			return "m 0," + track.baseheight + "l 0,-" + (track.baseheight + d.height) + " " + d.width + ",0";
-			
+
 		    })
 		.attr("fill-opacity", 0)
 		arrowbase.append("use").attr("xlink:href", "#rightarrow")
@@ -825,8 +825,8 @@ genomeTrack.prototype.displayGapTrack = function(track, i) {
 
     var gaps = this.itemRects[i].selectAll("path")
     .data(items, function(d) { return d.id; })
-    .attr("transform", function(d,i) { 
-	    return "translate(" + x1(d.start) + ', 0)'; 
+    .attr("transform", function(d,i) {
+	    return "translate(" + x1(d.start) + ', 0)';
 	})
     .each(function (d) { d.width = x1(d.end) - x1(d.start); })
     .attr('d', function(d) { return self.jaggedPathGenerator(d.width, gap_range); } );
@@ -834,8 +834,8 @@ genomeTrack.prototype.displayGapTrack = function(track, i) {
     var entering_gaps = gaps.enter().append("path")
     .each(function (d) { d.width = x1(d.end) - x1(d.start); })
     .attr('d', function(d) { return self.jaggedPathGenerator(d.width, gap_range); } )
-    .attr("transform", function(d,i) { 
-	    return "translate(" + x1(d.start) + ', 0)'; 
+    .attr("transform", function(d,i) {
+	    return "translate(" + x1(d.start) + ', 0)';
 	})
     .attr("id", function(d,i) { return track.trackName + '_' + d.id; })
     .attr("class", function(d) {return track.trackName + ' linearplot ' + (typeof d.feature === 'undefined' ? 'gene' : d.feature); })//;
@@ -852,7 +852,7 @@ genomeTrack.prototype.displayGapTrack = function(track, i) {
 		null;
 	    }
 	})
-    .on('mouseover', function(d) { 
+    .on('mouseover', function(d) {
 	    tip.show(d);
 	    if('undefined' !== typeof track.linear_mouseover) {
 		var fn = window[track.linear_mouseover];
@@ -861,9 +861,9 @@ genomeTrack.prototype.displayGapTrack = function(track, i) {
 		} else if('function' == typeof fn) {
 		    return fn(track.trackName, d, cfg.plotid);
 		}
-	    }	
+	    }
 	})
-    .on('mouseout', function(d) { 
+    .on('mouseout', function(d) {
 	    tip.hide(d);
 	    if('undefined' !== typeof track.linear_mouseout) {
 		var fn = window[track.linear_mouseout];
@@ -872,7 +872,7 @@ genomeTrack.prototype.displayGapTrack = function(track, i) {
 		} else if('function' == typeof fn) {
 		    return fn(track.trackName, d, cfg.plotid);
 		}
-	    }	
+	    }
 	});
 
     gaps.exit().remove();
@@ -947,7 +947,7 @@ genomeTrack.prototype.displayGlyphTrack = function(track, i) {
     var glyphs = this.itemRects[i].selectAll("path")
     .data(items, function(d) { return d.id; })
     .attr("transform", function(d,i) { return "translate(" + (x1(d.bp) + track.padding) + ',' + (track.linear_height - (track.linear_glyph_buffer * d.stackCount * track.invert))  + ")"; });
-   
+
     var entering_glyphs = glyphs.enter()
     .append('path')
     .attr('id', function(d,i) { return track.trackName + "_glyph" + d.id; })
@@ -966,7 +966,7 @@ genomeTrack.prototype.displayGlyphTrack = function(track, i) {
 		null;
 	    }
 	})
-    .on('mouseover', function(d) { 
+    .on('mouseover', function(d) {
 	tip.show(d);
 	    if('undefined' !== typeof track.linear_mouseover) {
 		var fn = window[track.linear_mouseover];
@@ -975,9 +975,9 @@ genomeTrack.prototype.displayGlyphTrack = function(track, i) {
 		} else if('function' == typeof fn) {
 		    return fn(track.trackName, d, cfg.plotid);
 		}
-	    }	
+	    }
 	})
-    .on('mouseout', function(d) { 
+    .on('mouseout', function(d) {
 	tip.hide(d);
 	    if('undefined' !== typeof track.linear_mouseout) {
 		var fn = window[track.linear_mouseout];
@@ -986,12 +986,12 @@ genomeTrack.prototype.displayGlyphTrack = function(track, i) {
 		} else if('function' == typeof fn) {
 		    return fn(track.trackName, d, cfg.plotid);
 		}
-	    }	
+	    }
 	});
 
     glyphs.exit()
     .remove();
-    
+
 }
 
 genomeTrack.prototype.displayAxis = function() {
@@ -1035,7 +1035,7 @@ genomeTrack.prototype.resize = function(newWidth) {
 
     this.clipPath
 	.attr("width", this.layout.width_without_margins)
-    
+
     this.main
 	.attr("width", this.layout.width_without_margins)
 
@@ -1081,7 +1081,7 @@ genomeTrack.prototype.redraw = function() {
 	    // Do nothing for an unknown track type
 	}
     }
-    
+
     this.axisContainer.select(".xaxislinear").call(this.xAxis);
 
 }
@@ -1114,7 +1114,7 @@ genomeTrack.prototype.rescale = function() {
     this.visEnd = cur_domain[1];
 
     if('undefined' !== typeof this.callbackObj) {
-	if( Object.prototype.toString.call( this.callbackObj ) === '[object Array]' ) { 
+	if( Object.prototype.toString.call( this.callbackObj ) === '[object Array]' ) {
 	    for(var obj in this.callbackObj) {
 		if(this.callbackObj.hasOwnProperty(obj)) {
 		    this.callbackObj[obj].update(this.x1.domain()[0], this.x1.domain()[1], { plotid: cfg.plotid } );
@@ -1136,7 +1136,7 @@ genomeTrack.prototype.addBrushCallback = function(obj) {
 
     if('undefined' !== typeof this.callbackObj) {
 
-	if( Object.prototype.toString.call( obj ) === '[object Array]' ) { 
+	if( Object.prototype.toString.call( obj ) === '[object Array]' ) {
 	    this.callbackObj.push(obj);
 	} else {
 	    var tmpobj = this.callbackObj;
@@ -1155,7 +1155,7 @@ genomeTrack.prototype.callBrushFinished = function() {
     var cfg = this.layout;
 
     if('undefined' !== typeof this.callbackObj) {
-	if( Object.prototype.toString.call( this.callbackObj ) === '[object Array]' ) { 
+	if( Object.prototype.toString.call( this.callbackObj ) === '[object Array]' ) {
 	    for(var obj in this.callbackObj) {
 		if(this.callbackObj.hasOwnProperty(obj)) {
 		    this.callbackObj[obj].update_finished(this.x1.domain()[0], this.x1.domain()[1], { plotid: cfg.plotid } );
@@ -1234,7 +1234,7 @@ genomeTrack.prototype.savePlot = function(scaling, filename, stylesheetfile, for
 //    g.setAttribute("transform", transform + " scale(" + scaling + ")");
 
     // Append the stylehsheet to the cloned svg element
-    // so when we export it the style are inline and 
+    // so when we export it the style are inline and
     // get rendered
     svg.getElementsByTagName("defs")[0].appendChild(style);
 
@@ -1253,7 +1253,7 @@ genomeTrack.prototype.savePlot = function(scaling, filename, stylesheetfile, for
 	canvg(canvas, content);
 
 	// Convert the canvas to a data url (this could
-	// be displayed inline by inserting it in to an 
+	// be displayed inline by inserting it in to an
 	// <img> tag in the src attribute, ie
 	// <img src="'+imgData+'">
 	var theImage = canvas.toDataURL('image/png');
@@ -1267,7 +1267,7 @@ genomeTrack.prototype.savePlot = function(scaling, filename, stylesheetfile, for
 }
 
 genomeTrack.prototype.dataURLtoBlob = function(dataURL) {
-  // Decode the dataURL    
+  // Decode the dataURL
   var binary = atob(dataURL.split(',')[1]);
   // Create 8-bit unsigned array
   var array = [];
@@ -1329,10 +1329,10 @@ genomeTrack.prototype.drawFeatures = function() {
 	.attr("transform", function () {
 		return "translate(-" + (y1(1) * 0.1) + "," + (y1(1) * 0.43) + ")";
 	    })
-	.attr("width", function() { 
+	.attr("width", function() {
 		return y1(1) * 0.3;
 	    })
-	.attr("height", function() { 
+	.attr("height", function() {
 		return y1(1) * 0.26;
 	    })
 	.attr("fill-opacity", opacity);
@@ -1391,10 +1391,10 @@ genomeTrack.prototype.drawFeatures = function() {
 	.attr("transform", function () {
 		return "translate(-" + (y1(1) * 0.1) + "," + (y1(1) * 1.20) + ")";
 	    })
-	.attr("width", function() { 
+	.attr("width", function() {
 		return y1(1) * 0.3;
 	    })
-	.attr("height", function() { 
+	.attr("height", function() {
 		return y1(1) * 0.26;
 	    })
 	.attr("fill-opacity", opacity);
@@ -1453,10 +1453,10 @@ genomeTrack.prototype.drawFeatures = function() {
 	.attr("transform", function () {
 		return "translate(-" + (y1(1) * 0.1) + "," + (y1(1) * 0.51) + ")";
 	    })
-	.attr("width", function() { 
+	.attr("width", function() {
 		return y1(1) * 0.3;
 	    })
-	.attr("height", function() { 
+	.attr("height", function() {
 		return y1(1) * 0.26;
 	    })
 	.attr("fill-opacity", opacity);

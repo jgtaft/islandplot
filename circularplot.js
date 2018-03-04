@@ -55,11 +55,11 @@ function circularTrack(layout,tracks) {
     d3.select(layout.container).select("svg").remove();
 
     this.container = d3.select(layout.container)
-	.append("svg")	
+	.append("svg")
 	.attr("id", function() { return layout.container.slice(1) + "_svg"; })
 	.attr("width", this.layout.w+this.layout.ExtraWidthX)
-	.attr("height", this.layout.h+this.layout.ExtraWidthY); 
-   
+	.attr("height", this.layout.h+this.layout.ExtraWidthY);
+
     this.g = this.container
 	.append("g")
 	.attr("id", function() { return layout.container.slice(1) + "_g"; })
@@ -193,7 +193,7 @@ function circularTrack(layout,tracks) {
 	    if('undefined' !== typeof this.tracks[i].hideTypes) {
 		this.maskGlyphTypes(i, this.tracks[i].hideTypes)
 	    }
-	    //	    this.tracks[i].container = 
+	    //	    this.tracks[i].container =
 	    //	this.g.append("g")
 	    //	.attr("class", this.tracks[i].trackName + "_glyph_container")
 	    this.drawGlyphTrack(i);
@@ -293,7 +293,7 @@ circularTrack.prototype.drawAxis = function() {
     .enter()
     .append("g")
     .attr("class", "axislabel");
-      
+
     axis_label.append("text")
     .attr("class", "legend")
     .text(function(d){ var prefix = d3.formatPrefix(d);
@@ -420,7 +420,7 @@ circularTrack.prototype.drawPlot = function(i, animate) {
     // Now do the mean circle if we have one
     if('undefined' !== typeof track.plot_mean) {
 	this.drawCircle(track.trackName,  this.tracks[i].plotRange(track.plot_mean), "grey", animate);
-    }  
+    }
 
     // And if we're doing an animated entrance...
     if('undefined' !== typeof animate) {
@@ -467,7 +467,7 @@ circularTrack.prototype.movePlot = function(i, radius) {
     // Now move the mean circle if we have one
     if('undefined' !== typeof track.plot_mean) {
 	this.moveCircle(track.trackName, this.tracks[i].plotRange(track.plot_mean));
-    }  
+    }
 }
 
 circularTrack.prototype.removePlot = function(i) {
@@ -522,10 +522,10 @@ circularTrack.prototype.drawTrack = function(i, animate) {
     // The arc object which will be passed in to each
     // set of data
     var arc = d3.svg.arc()
-    .innerRadius(function(d){ return (('undefined' == typeof animate) ? 
-				      calcInnerRadius(track.inner_radius, track.outer_radius, d.strand) 
+    .innerRadius(function(d){ return (('undefined' == typeof animate) ?
+				      calcInnerRadius(track.inner_radius, track.outer_radius, d.strand)
 				      : 1);})
-    .outerRadius(function(d){ return (('undefined' == typeof animate) ? 
+    .outerRadius(function(d){ return (('undefined' == typeof animate) ?
 				      calcOuterRadius(track.inner_radius, track.outer_radius, d.strand)
 				      : 2);})
     .startAngle(function(d){if(track.min_slice && (d.end - d.start) < cfg.min_bp_per_slice) {
@@ -540,7 +540,7 @@ circularTrack.prototype.drawTrack = function(i, animate) {
 		return cfg.radians_pre_bp*d.end;
 	    }
 	});
-      
+
     // Draw the track, putting in elements such as hover colour change
     // if one exists, click events, etc
     g.selectAll(".tracks."+track.trackName)
@@ -643,7 +643,7 @@ circularTrack.prototype.moveTrack = function(i, innerRadius, outerRadius) {
 		return cfg.radians_pre_bp*d.end;
 	    }
 	});
- 
+
 
     //   .endAngle(function(d){return cfg.radians_pre_bp*d.start;})
     //    .startAngle(function(d){return cfg.radians_pre_bp*d.end;});
@@ -755,7 +755,7 @@ circularTrack.prototype.moveGap = function(i, innerRadius, outerRadius) {
 
     var gap_range = d3.range(innerRadius, outerRadius, 8);
 
-    g.selectAll("." + track.trackName + '_g') 
+    g.selectAll("." + track.trackName + '_g')
     .transition()
     .duration(1000)
     .attr("transform", "translate("+cfg.w2+","+cfg.h2+")")
@@ -765,7 +765,7 @@ circularTrack.prototype.moveGap = function(i, innerRadius, outerRadius) {
     .duration(1000)
     .attrTween("d", function(d) { return pathTween(this, self.jaggedLineGenerator(d.start, gap_range), 4) });
 
-    
+
 }
 
 circularTrack.prototype.removeGap = function(i) {
@@ -780,7 +780,7 @@ circularTrack.prototype.removeGap = function(i) {
     .attrTween("d", function(d) { return pathTween(this, self.jaggedLineGenerator(d.start, [1,2]), 4) })
     .remove();
 
-    g.selectAll("." + track.trackName + '_g') 
+    g.selectAll("." + track.trackName + '_g')
     .transition()
     .duration(1000)
     .style('opacity', 0)
@@ -863,8 +863,8 @@ circularTrack.prototype.drawGlyphTrack = function(i) {
 	ys = ys * ys;
 	var dist = Math.sqrt(xs + ys);
 
-	if(dist < track.pixel_spacing) { 
-	    items[i].stackCount = items[i-1].stackCount + 1; 
+	if(dist < track.pixel_spacing) {
+	    items[i].stackCount = items[i-1].stackCount + 1;
 	    continue;
 	}
 
@@ -882,7 +882,7 @@ circularTrack.prototype.drawGlyphTrack = function(i) {
     .duration(1000)
     .attr("transform", function(d,i) { return "translate(" + x(d,i) + ","
 		+ y(d,i) + ")" })
-    .style("opacity", 1);    
+    .style("opacity", 1);
 
     trackPath.exit()
     .transition()
@@ -913,7 +913,7 @@ circularTrack.prototype.updateGlyphTrack = function(i) {
     var track = this.tracks[i];
     var stack_count = 0;
 
-    
+
 }
 
 ////////////////////////////////////////////////
@@ -925,7 +925,7 @@ circularTrack.prototype.updateGlyphTrack = function(i) {
 circularTrack.prototype.attachBrush = function(callbackObj) {
     if('undefined' !== typeof this.callbackObj) {
 
-	if( Object.prototype.toString.call( callbackObj ) === '[object Array]' ) { 
+	if( Object.prototype.toString.call( callbackObj ) === '[object Array]' ) {
 	    this.callbackObj.push(callbackObj);
 	} else {
 	    var tmpobj = this.callbackObj;
@@ -953,13 +953,13 @@ circularTrack.prototype.redrawBrush = function(startRad, endRad) {
 
 	this.moveBrush(startRad, endRad);
 
-	d3.select("#brushStart_" + cfg.containerid)		
+	d3.select("#brushStart_" + cfg.containerid)
 	    .transition()
 	    .duration(1000)
 	    .attr("cx", cfg.h/2 + ((cfg.radius-10)*Math.cos(startRad-cfg.PI2)))
 	    .attr("cy", cfg.h/2 + ((cfg.radius-10)*Math.sin(startRad-cfg.PI2)));
 
-	d3.select("#brushEnd_" + cfg.containerid)		
+	d3.select("#brushEnd_" + cfg.containerid)
 	    .transition()
 	    .duration(1000)
 	    .attr("cx", cfg.w2 + ((cfg.radius-10)*Math.cos(endRad-cfg.PI2)))
@@ -1005,10 +1005,10 @@ circularTrack.prototype.createBrush = function() {
 		return;
 	    }
 
-	    g.select("#brushStart_" + cfg.containerid)		
+	    g.select("#brushStart_" + cfg.containerid)
 	    .attr("cx", function(d, i){return cfg.h/2 + (cfg.radius-10)*Math.cos((curRadandBP[0])-cfg.PI2);})
 	    .attr("cy", function(d, i){return cfg.h/2 + (cfg.radius-10)*Math.sin((curRadandBP[0])-cfg.PI2); });
-		
+
 	    self.brushStart = curRadandBP[0];
 	    self.brushStartBP = curRadandBP[1];
 	    self.moveBrush(self.brushStart, self.brushEnd);
@@ -1035,10 +1035,10 @@ circularTrack.prototype.createBrush = function() {
 		return;
 	    }
 
-	    g.select("#brushEnd_" + cfg.containerid)		
+	    g.select("#brushEnd_" + cfg.containerid)
 	    .attr("cx", function(d, i){return cfg.h/2 + (cfg.radius-10)*Math.cos((curRadandBP[0])-cfg.PI2);})
 	    .attr("cy", function(d, i){return cfg.h/2 + (cfg.radius-10)*Math.sin((curRadandBP[0])-cfg.PI2); });
-		
+
 	    self.brushEnd = curRadandBP[0];
 	    self.brushEndBP = curRadandBP[1];
 	    self.moveBrush(self.brushStart, self.brushEnd);
@@ -1078,7 +1078,7 @@ circularTrack.prototype.createBrush = function() {
 circularTrack.prototype.doBrushCallback = function(startBP, endBP) {
     var cfg = this.layout;
 
-    if( Object.prototype.toString.call( this.callbackObj ) === '[object Array]' ) { 
+    if( Object.prototype.toString.call( this.callbackObj ) === '[object Array]' ) {
 	for(var obj in this.callbackObj) {
 	    if(this.callbackObj.hasOwnProperty(obj)) {
 		this.callbackObj[obj].update(startBP, endBP, { plotid: cfg.plotid } );
@@ -1093,7 +1093,7 @@ circularTrack.prototype.doBrushCallback = function(startBP, endBP) {
 circularTrack.prototype.doBrushFinishedCallback = function(startBP, endBP) {
     var cfg = this.layout;
 
-    if( Object.prototype.toString.call( this.callbackObj ) === '[object Array]' ) { 
+    if( Object.prototype.toString.call( this.callbackObj ) === '[object Array]' ) {
 	for(var obj in this.callbackObj) {
 	    if(this.callbackObj.hasOwnProperty(obj)) {
 		this.callbackObj[obj].update_finished(startBP, endBP, { plotid: cfg.plotid });
@@ -1120,7 +1120,7 @@ circularTrack.prototype.moveBrush = function(startRad, endRad) {
 
     this.currentStart = startRad;
     this.currentEnd = endRad;
-    
+
 }
 
 circularTrack.prototype.moveBrushbyBP = function(startbp, endbp) {
@@ -1134,13 +1134,13 @@ circularTrack.prototype.moveBrushbyBP = function(startbp, endbp) {
     this.brushStartBP = startbp;
     this.currentStart = startRad;
     this.currentEnd = endRad;
-    d3.select("#brushStart_" + cfg.containerid)		
+    d3.select("#brushStart_" + cfg.containerid)
     .attr("cx", cfg.h/2 + ((cfg.radius-10)*Math.cos(startRad-cfg.PI2)))
     .attr("cy", cfg.h/2 + ((cfg.radius-10)*Math.sin(startRad-cfg.PI2)));
 
     this.brushEnd = endRad;
     this.brushEndBP = endbp;
-    d3.select("#brushEnd_" + cfg.containerid)		
+    d3.select("#brushEnd_" + cfg.containerid)
     .attr("cx", cfg.w2 + ((cfg.radius-10)*Math.cos(endRad-cfg.PI2)))
     .attr("cy", cfg.h2 + ((cfg.radius-10)*Math.sin(endRad-cfg.PI2)));
 
@@ -1264,7 +1264,7 @@ circularTrack.prototype.savePlot = function(scaling, filename, stylesheetfile, f
     g.setAttribute("transform", transform + " scale(" + scaling + ")");
 
     // Append the stylehsheet to the cloned svg element
-    // so when we export it the style are inline and 
+    // so when we export it the style are inline and
     // get rendered
     svg.getElementsByTagName("defs")[0].appendChild(style);
 
@@ -1283,7 +1283,7 @@ circularTrack.prototype.savePlot = function(scaling, filename, stylesheetfile, f
 	canvg(canvas, content);
 
 	// Convert the canvas to a data url (this could
-	// be displayed inline by inserting it in to an 
+	// be displayed inline by inserting it in to an
 	// <img> tag in the src attribute, ie
 	// <img src="'+imgData+'">
 	var theImage = canvas.toDataURL('image/png');
@@ -1337,7 +1337,7 @@ circularTrack.prototype.saveRaster = function(scaling, filename, stylesheetfile)
     g.setAttribute("transform", transform + " scale(" + scaling + ")");
 
     // Append the stylehsheet to the cloned svg element
-    // so when we export it the style are inline and 
+    // so when we export it the style are inline and
     // get rendered
     svg.getElementsByTagName("defs")[0].appendChild(style);
 
@@ -1348,7 +1348,7 @@ circularTrack.prototype.saveRaster = function(scaling, filename, stylesheetfile)
     canvg(canvas, content);
 
     // Convert the canvas to a data url (this could
-    // be displayed inline by inserting it in to an 
+    // be displayed inline by inserting it in to an
     // <img> tag in the src attribute, ie
     // <img src="'+imgData+'">
     var theImage = canvas.toDataURL('image/png');
@@ -1362,7 +1362,7 @@ circularTrack.prototype.saveRaster = function(scaling, filename, stylesheetfile)
 }
 
 circularTrack.prototype.dataURLtoBlob = function(dataURL) {
-  // Decode the dataURL    
+  // Decode the dataURL
   var binary = atob(dataURL.split(',')[1]);
   // Create 8-bit unsigned array
   var array = [];
@@ -1590,7 +1590,7 @@ circularTrack.prototype.dragresize_end = function() {
 }
 
 circularTrack.prototype.resize = function(newWidth) {
-    
+
     var resize_ratio = newWidth / this.layout.radius / 2;
 
     this.layout.radius = this.layout.factor*Math.min(newWidth/2, newWidth/2);
@@ -1710,7 +1710,7 @@ Array.prototype.contains = function(obj) {
 }
 
 // If we're displaying a stranded track, calculate
-// the inner radius depending on which strand the 
+// the inner radius depending on which strand the
 // gene is on.
 
 function calcInnerRadius(inner, outer, strand) {
@@ -1724,9 +1724,9 @@ function calcInnerRadius(inner, outer, strand) {
 }
 
 // If we're displaying a stranded track, calculate
-// the outer radius depending on which strand the 
+// the outer radius depending on which strand the
 // gene is on.
-    
+
 function calcOuterRadius (inner, outer, strand) {
     if('undefined' == typeof strand) {
 	return outer;
@@ -1750,6 +1750,6 @@ function calcRadBPfromXY (x,y,xScale) {
 function calcMinSliceSize () {
     var cfg = this.layout;
 
-    
+
     //cfg.radians_pre_bp
 }
